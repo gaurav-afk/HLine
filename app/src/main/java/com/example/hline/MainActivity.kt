@@ -60,16 +60,16 @@ class MainActivity : ComponentActivity() {
                             fontWeight = FontWeight.Bold
                         )
                     ) {
-                        append("H") // Append only "H"
+                        append("H")
                     }
                     withStyle(
                         style = SpanStyle(
-                            color = Color(0xFFFFF2D7), // Light Gray for "Line"
+                            color = Color(0xFFFFF2D7),
                             fontSize = 30.sp,
                             fontWeight = FontWeight.Bold
                         )
                     ) {
-                        append("Line") // Append "Line"
+                        append("Line")
                     }
                 }
             )

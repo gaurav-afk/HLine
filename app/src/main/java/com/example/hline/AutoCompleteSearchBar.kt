@@ -1,9 +1,6 @@
 package com.example.hline
 
-import android.content.Context
-import android.telephony.CarrierConfigManager.ImsEmergency
-import android.util.DisplayMetrics
-import android.view.WindowManager
+
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -14,17 +11,14 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
@@ -41,7 +35,7 @@ import coil.request.ImageRequest
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AutoCompleteSearchBar() {
-    var selectedCountry by remember { mutableStateOf("") }
+    var selectedCountry by remember { mutableStateOf("India") }
     var expanded by remember { mutableStateOf(false) }
     var textFieldSize by remember { mutableStateOf(Size.Zero) }
 
@@ -108,11 +102,11 @@ fun AutoCompleteSearchBar() {
             Card(
                 modifier = Modifier
                     .width(textFieldSize.width.dp)
-                    .padding(horizontal = 30.dp),
+                    .padding(horizontal = 20.dp),
                 shape = RoundedCornerShape(15.dp),
             ) {
                 LazyColumn(
-                    modifier = Modifier.heightIn(max = 150.dp),
+                    modifier = Modifier.heightIn(max = 250.dp),
                 ) {
                     items(filteredCountries) { helpline ->
                         CountryItem(helpline = helpline) { selected ->
