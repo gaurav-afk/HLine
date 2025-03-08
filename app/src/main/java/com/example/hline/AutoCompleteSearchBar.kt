@@ -1,6 +1,7 @@
 package com.example.hline
 
 import android.content.Context
+import android.telephony.CarrierConfigManager.ImsEmergency
 import android.util.DisplayMetrics
 import android.view.WindowManager
 import androidx.compose.animation.AnimatedVisibility
@@ -13,14 +14,17 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
@@ -56,7 +60,7 @@ fun AutoCompleteSearchBar() {
             modifier = Modifier
                 .height(55.dp)
                 .fillMaxWidth()
-                .padding(horizontal = 30.dp)
+                .padding(horizontal = 20.dp)
                 .onGloballyPositioned { coordinates ->
                     textFieldSize = coordinates.size.toSize()
                 },
@@ -91,7 +95,10 @@ fun AutoCompleteSearchBar() {
                             .build(),
                         contentDescription = "Flag of $selectedCountry",
                         modifier = Modifier
-                            .size(35.dp)
+                            .size(45.dp)
+                            .padding(end = 10.dp)
+
+
                     )
                 }
             }
@@ -129,10 +136,10 @@ fun AutoCompleteSearchBar() {
                     contentPadding = PaddingValues(15.dp),
                 ) {
                     items(helpline.emergency.toList()) { (service, number) ->
-                        HelplineCard(number, service)
+                        HelplineCard(number, service, true)
                     }
                     items(helpline.otherHelplines.toList()) { (service, number) ->
-                        HelplineCard(number, service)
+                        HelplineCard(number, service, false)
                     }
                 }
             }
@@ -141,12 +148,12 @@ fun AutoCompleteSearchBar() {
 }
 
 @Composable
-fun HelplineCard(number: String, title: String, modifier: Modifier = Modifier) {
+fun HelplineCard(number: String, title: String, isEmergency: Boolean) {
     Box(
-        modifier = modifier
+        modifier = Modifier
             .width(160.dp)
             .height(100.dp)
-            .border(2.dp, Color(0xFFF98866), shape = RoundedCornerShape(16.dp))
+            .border(2.dp, if (isEmergency) Color(0xFFF98866) else Color(0xFF3F6F66), shape = RoundedCornerShape(16.dp))
             .background(Color(0xFF31473A), shape = RoundedCornerShape(16.dp)),
         contentAlignment = Alignment.Center
     ) {
