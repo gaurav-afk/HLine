@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             HLineTheme {
                 Scaffold(
-                    topBar = { topBar() },
+                    topBar = { TopBar() },
                     modifier = Modifier.fillMaxSize()
                 ) { innerPadding ->
                     Column(modifier = Modifier
@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
 
 
     @Composable
-    fun topBar() {
+    fun TopBar() {
         Row(
             modifier = Modifier
                 .padding(top = 30.dp)
