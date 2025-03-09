@@ -2,6 +2,8 @@ package com.example.hline
 
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -23,14 +25,19 @@ import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -128,6 +135,25 @@ fun AutoCompleteSearchBar() {
         }
 
         Spacer(modifier = Modifier.padding(top = 20.dp))
+
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(10.dp),
+            modifier = Modifier
+                .padding(horizontal = 15.dp)
+                .background(Color(0xFFF88800), shape = RoundedCornerShape(16.dp))
+                .padding(12.dp)
+        ) {
+            Image(painter = painterResource(id = R.drawable.warning), contentDescription = "Warning icon", modifier = Modifier.size(24.dp))
+            Text(
+                text = buildAnnotatedString {
+                    withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+                        append("Warning: ")
+                    }
+                    append("Clicking on any helpline number will immediately make a call.")
+                },
+                style = TextStyle(fontSize = 14.sp, color = Color.Black)
+            )
+        }
 
         if (selectedCountry.isNotEmpty()) {
             val selectedHelpline = helplines.find { it.country == selectedCountry }
