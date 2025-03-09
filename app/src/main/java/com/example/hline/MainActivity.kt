@@ -47,7 +47,7 @@ class MainActivity : ComponentActivity() {
     fun TopBar() {
         Row(
             modifier = Modifier
-                .padding(top = 30.dp)
+                .padding(top = 50.dp)
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
         ) {

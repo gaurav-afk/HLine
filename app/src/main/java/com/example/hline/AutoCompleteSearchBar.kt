@@ -15,8 +15,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -26,7 +30,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.isUnspecified
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
 import coil.compose.AsyncImage
@@ -94,10 +102,7 @@ fun AutoCompleteSearchBar() {
                             .clickable {
                                 expanded = !expanded
                             }
-
-
                     )
-
                 }
             }
         )
@@ -151,7 +156,11 @@ fun HelplineCard(number: String, title: String, isEmergency: Boolean) {
         modifier = Modifier
             .width(160.dp)
             .height(100.dp)
-            .border(2.dp, if (isEmergency) Color(0xFFF98866) else Color(0xFF3F6F66), shape = RoundedCornerShape(16.dp))
+            .border(
+                2.dp,
+                if (isEmergency) Color(0xFFF98866) else Color(0xFF3F6F66),
+                shape = RoundedCornerShape(16.dp)
+            )
             .background(Color(0xFF31473A), shape = RoundedCornerShape(16.dp)),
         contentAlignment = Alignment.Center
     ) {
@@ -159,18 +168,10 @@ fun HelplineCard(number: String, title: String, isEmergency: Boolean) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(
-                text = number,
-                fontSize = 22.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color(0xFFF98866)
-            )
-            Text(
-                text = title,
-                fontSize = 14.sp,
-                color = Color(0xFFEFEFEF),
-                textAlign = TextAlign.Center
-            )
+            AutoResizedText(text = number, color = Color(0xFFF98866), style = TextStyle(fontSize = 22.sp, fontWeight = FontWeight.Bold))
+            Spacer(modifier = Modifier.padding(vertical = 5.dp))
+            AutoResizedText(text = title, color = Color(0xFFFFF2D7), style = TextStyle(fontSize = 14.sp, fontWeight = FontWeight.Normal))
+
         }
     }
 }
@@ -190,4 +191,31 @@ fun CountryItem(
         Text(text = helpline.country, fontSize = 16.sp)
     }
 }
+
+@Composable
+fun AutoResizedText(
+    modifier: Modifier = Modifier,
+    text: String,
+    style: TextStyle = TextStyle(fontSize = 22.sp),
+    color: Color = style.color
+) {
+    var resizedTextStyle by remember { mutableStateOf(style) }
+    val defaultFontSize = MaterialTheme.typography.bodyMedium.fontSize
+
+    Text(
+        text = text,
+        color = color,
+        modifier = modifier.padding(horizontal = 8.dp),
+        style = resizedTextStyle,
+        softWrap = false,
+        onTextLayout = { result ->
+            if (result.didOverflowWidth) {
+                resizedTextStyle = resizedTextStyle.copy(
+                    fontSize = if (resizedTextStyle.fontSize.isUnspecified) defaultFontSize else resizedTextStyle.fontSize * 0.95
+                )
+            }
+        }
+    )
+}
+
 
