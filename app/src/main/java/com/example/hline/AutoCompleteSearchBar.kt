@@ -3,7 +3,10 @@ package com.example.hline
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -39,6 +42,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.isUnspecified
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 
@@ -176,6 +181,14 @@ fun HelplineCard(number: String, title: String, isEmergency: Boolean) {
     val context = LocalContext.current
     var lastTapTime by remember { mutableStateOf(0L) }
 
+    val callPermissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            makeCall(context, number)
+        }
+    }
+
     Box(
         modifier = Modifier
             .width(160.dp)
@@ -189,7 +202,15 @@ fun HelplineCard(number: String, title: String, isEmergency: Boolean) {
             .clickable {
                 val currentTime = System.currentTimeMillis()
                 if (currentTime - lastTapTime <= 1000) {
-                    makeCall(context, number)
+                    if (ContextCompat.checkSelfPermission(
+                            context,
+                            android.Manifest.permission.CALL_PHONE
+                        ) == PackageManager.PERMISSION_GRANTED
+                    ) {
+                        makeCall(context, number)
+                    } else {
+                        callPermissionLauncher.launch(android.Manifest.permission.CALL_PHONE)
+                    }
                 }
                 lastTapTime = currentTime
             },
@@ -202,10 +223,19 @@ fun HelplineCard(number: String, title: String, isEmergency: Boolean) {
             AutoResizedText(text = number, color = Color(0xFFF98866), style = TextStyle(fontSize = 22.sp, fontWeight = FontWeight.Bold))
             Spacer(modifier = Modifier.padding(vertical = 5.dp))
             AutoResizedText(text = title, color = Color(0xFFFFF2D7), style = TextStyle(fontSize = 14.sp, fontWeight = FontWeight.Normal))
-
         }
     }
 }
+
+fun makeCall(context: Context, number: String) {
+    val intent = Intent(Intent.ACTION_CALL).apply {
+        data = Uri.parse("tel:$number")
+    }
+    if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+        context.startActivity(intent)
+    }
+}
+
 
 
 @Composable
@@ -250,10 +280,3 @@ fun AutoResizedText(
 }
 
 
-
-fun makeCall(context: Context, number: String) {
-    val intent = Intent(Intent.ACTION_DIAL).apply {
-        data = Uri.parse("tel:$number")
-    }
-    context.startActivity(intent)
-}
