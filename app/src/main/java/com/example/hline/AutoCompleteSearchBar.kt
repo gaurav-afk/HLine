@@ -159,6 +159,7 @@ fun AutoCompleteSearchBar() {
             val selectedHelpline = helplines.find { it.country == selectedCountry }
             selectedHelpline?.let { helpline ->
                 LazyVerticalGrid(
+                    modifier = Modifier.fillMaxHeight(),
                     columns = GridCells.Fixed(2),
                     verticalArrangement = Arrangement.spacedBy(15.dp),
                     horizontalArrangement = Arrangement.spacedBy(15.dp),

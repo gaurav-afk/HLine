@@ -32,7 +32,12 @@ class MainActivity : ComponentActivity() {
                     Column(modifier = Modifier
                         .fillMaxSize()
                         .background(Color(0xFF233733))
-                        .padding(innerPadding)
+                        .padding(
+                            top = innerPadding.calculateTopPadding(),
+                            start = 0.dp,
+                            end = 0.dp,
+                            bottom = 0.dp
+                        )
                        ) {
                         AutoCompleteSearchBar()
                     }
