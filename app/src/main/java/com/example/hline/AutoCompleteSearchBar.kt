@@ -91,9 +91,13 @@ fun AutoCompleteSearchBar() {
                         modifier = Modifier
                             .size(45.dp)
                             .padding(end = 10.dp)
+                            .clickable {
+                                expanded = !expanded
+                            }
 
 
                     )
+
                 }
             }
         )
