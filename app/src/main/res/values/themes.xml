@@ -2,7 +2,9 @@
 <resources>
 
     <style name="Theme.HLine" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:windowBackground">@color/splash_background
-        </item>
+        <item name="android:windowSplashScreenBackground">@color/splash_background</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_splash_screen</item>
+        <item name="android:windowSplashScreenAnimationDuration">100</item>
     </style>
+
 </resources>
