@@ -2,7 +2,7 @@
 <resources>
 
     <style name="Theme.HLine" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:windowSplashScreenBackground">@color/splash_background</item>
+        <item name="android:windowBackground">@color/splash_background</item>
         <item name="android:windowSplashScreenAnimatedIcon">@mipmap/ic_channel_foreground</item>
     </style>
 

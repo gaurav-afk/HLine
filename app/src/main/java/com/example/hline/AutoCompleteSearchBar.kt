@@ -61,11 +61,12 @@ fun AutoCompleteSearchBar() {
     } else {
         helplines
     }
-
+    val focusManager = LocalFocusManager.current
     Column(
         modifier = Modifier
             .padding(vertical = 30.dp)
             .fillMaxWidth()
+
     ) {
         TextField(
             modifier = Modifier
@@ -130,6 +131,7 @@ fun AutoCompleteSearchBar() {
                         CountryItem(helpline = helpline) { selected ->
                             selectedCountry = selected.country
                             expanded = false
+                            focusManager.clearFocus()
                         }
                     }
                 }
