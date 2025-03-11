@@ -19,7 +19,6 @@ The app features a country flag indicator, a search bar with auto-completion, an
 
 ## Requirements
 - Android SDK version 35 or higher.
-- Necessary permissions (e.g., CALL_PHONE) for making calls.
 - Internet connection for loading country flags.
 
 ## Libraries & Tools
