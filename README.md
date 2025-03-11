@@ -8,8 +8,8 @@ HLine is a mobile app designed to provide helplines for various emergencies and 
 The app features a country flag indicator, a search bar with auto-completion, and a visual warning about double-tapping to call.
 
 ##Screenshots
-![HLine_ss1](https://github.com/user-attachments/assets/c59c69f5-81cc-4111-941b-c8d0106ce8d4)
-![hline_ss2](https://github.com/user-attachments/assets/0438c0a8-cf29-42eb-9a0e-c0a3248ea5ad)
+<img src="https://github.com/user-attachments/assets/c59c69f5-81cc-4111-941b-c8d0106ce8d4" width="200" height="400">
+<img src="https://github.com/user-attachments/assets/0438c0a8-cf29-42eb-9a0e-c0a3248ea5ad" width="200" height="400">
 
 ## Features
 - **Auto-complete Search Bar**: Quickly search for a country and view the emergency and other helplines.
