@@ -1,4 +1,4 @@
-![Hline_banner](https://github.com/user-attachments/assets/9077d485-5b4a-49d4-8eb8-d17172a10db3)
+<img width="1079" alt="Hline_banner" src="https://github.com/user-attachments/assets/f3cd88a9-eef2-4cad-92c0-b7cc893f2460" />
 
 # HLine (Helpline App)
 
