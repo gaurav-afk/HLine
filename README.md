@@ -25,8 +25,7 @@ The app features a country flag indicator, a search bar with auto-completion, an
 ## Libraries & Tools
 - Jetpack Compose for UI.
 - Coil for image loading (flags).
-- Kotlin Coroutines for asynchronous operations.
-
+  
 ## Getting Started
 
 ### Clone the repository
